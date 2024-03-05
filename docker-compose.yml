@@ -1,0 +1,21 @@
+version: "3"
+services:
+  backend:
+    container_name: icon_html
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/usr/src/app/backend
+    command: sh -c 'cd backend && flask run --debug --host=0.0.0.0'
+    ports:
+      - 8320:5000
+    tty: true
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - 80:80 
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
